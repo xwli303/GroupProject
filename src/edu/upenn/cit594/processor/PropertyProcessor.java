@@ -3,7 +3,7 @@ package edu.upenn.cit594.processor;
 import java.util.List;
 import java.util.Map;
 
-import edu.upenn.cit594.datamangement.PropertyReader;
+import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.util.PropertyData;
 
 public class PropertyProcessor {
