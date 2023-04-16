@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import util.PropertyData;
+import edu.upenn.cit594.util.PropertyData;
 
 public class CSVPropertyReader implements PropertyReader {
 
