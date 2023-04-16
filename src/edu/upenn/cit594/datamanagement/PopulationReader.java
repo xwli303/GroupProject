@@ -1,4 +1,39 @@
 package edu.upenn.cit594.datamanagement;
 
-public class PopulationReader {
+import edu.upenn.cit594.util.PopulationData;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+
+public class PopulationReader implements IPopulationReader {
+
+    public Set<PopulationData> readCsvFile(String filename) {
+        Set<PopulationData> data = new HashSet<>();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filename));
+
+            String line;
+            boolean firstLine = true;
+            while ((line = reader.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false;
+                    continue; // skip header line
+                }
+                List<String> tokens = Arrays.asList(line.split(","));
+                int zipCode = Integer.parseInt(tokens.get(0).replaceAll("\"", ""));
+                int population = Integer.parseInt(tokens.get(1).replaceAll("\"", ""));
+                PopulationData record = new PopulationData(zipCode, population);
+
+                data.add(record);
+            }
+            reader.close();
+
+        } catch (IOException e) {
+            //log
+        }
+        return data;
+    }
 }
