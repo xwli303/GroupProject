@@ -12,4 +12,6 @@ public interface ICovidProcessor {
     List<CovidData> getAllCovidData();
 
     Map<Integer, Double> getZipVaxDataPerCapita(LocalDate inputDate, String vaxType, Set<PopulationData> populationData);
+
+    Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData);
 }

@@ -6,7 +6,6 @@ import edu.upenn.cit594.util.PopulationData;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Stream;
 
 
 public class CovidProcessor implements  ICovidProcessor{
@@ -62,6 +61,22 @@ public class CovidProcessor implements  ICovidProcessor{
         return zipVaxData;
     }
 
+    public Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData) {
+        Map<Integer, Integer> zipPositive = new HashMap<>();
+        List<CovidData> covidData = this.getAllCovidData();
+        for (CovidData covid : covidData) {
+            PopulationData matchingZipPop = populationData.stream()
+                    .filter(obj -> obj.getZipCode() == covid.getZipCode())
+                    .findFirst()
+                    .orElse(null);
+            if (matchingZipPop != null) {
+                zipPositive.put(matchingZipPop.getZipCode(), covid.getPositive());
+            }
+        }
+        return zipPositive;
+    }
+
+
     private List<CovidData> getDataByDate(LocalDate inputDate){
         List<CovidData> allCovidData = this.getAllCovidData();
         //filter covidData for the input data
@@ -86,11 +101,7 @@ public class CovidProcessor implements  ICovidProcessor{
                 zipMap.put(matchingZipPop, covid);
             }
         }
-
         return zipMap;
     }
-
-
-
 
 }
