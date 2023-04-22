@@ -4,12 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Logger {
-  
+
 	/**
 	 * uses the SINGLETON implementation design pattern
 	 */
 
 	private FileWriter out;
+	private boolean fileFound;
 	private Logger() {} 
 	private static Logger instance = new Logger();
 
@@ -29,8 +30,12 @@ public class Logger {
 
 	public void log(String event) {
 		try {
-			out.write(event);
-			out.flush();
+			if (fileFound == true) {
+				out.write(System.currentTimeMillis() + " " + event);
+				out.flush();
+			} else {
+				System.err.println(System.currentTimeMillis() + " " + event);
+			}
 		} catch (IOException e) {
 			System.out.println(event + " was unable to be logged");
 			e.printStackTrace();
@@ -48,6 +53,23 @@ public class Logger {
 		if (out != null) {
 			out.close();
 		}
-		out = new FileWriter(filename, true);
+
+		fileFound = findFile(filename);
+
+		// check if filename is null / not given
+		if (fileFound == true) {
+			out = new FileWriter(filename, true);
+		}
+
 	}
+
+	private boolean findFile(String filename) {
+		if (filename != null) {
+			return true;
+		}
+
+		return false;
+	}
+
 }
+
