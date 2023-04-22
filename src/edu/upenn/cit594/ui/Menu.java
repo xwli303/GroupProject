@@ -3,6 +3,8 @@ package edu.upenn.cit594.ui;
 import edu.upenn.cit594.processor.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -82,18 +84,31 @@ public class Menu {
                         System.out.print("Enter a vaccine type (full/partial): ");
                         String userInputType = scanner.nextLine();
 
-                        if (!userInputType.isEmpty()) {
+                        //validate type
+                        boolean validType = userInputType.equalsIgnoreCase("full") || userInputType.equalsIgnoreCase("partial");
+
+                        //reprompt if type input is empty or invalid
+                        if (!userInputType.isEmpty() && validType) {
                             boolean datePrompt = true;
                             while (datePrompt) {
                                 System.out.print("Enter a date (YYYY-MM-DD): ");
                                 String userInputDate = scanner.nextLine();
-                                if (!userInputDate.isEmpty()) {
+                                //validate date input
+                                boolean isValidDate = isValidDateFormat(userInputDate);
+                                //if date is empty or invalid, reprompt
+                                if (!userInputDate.isEmpty() && isValidDate) {
                                     Map<Integer, Double> zipVax =
                                             this.covidProcessor.getZipVaxDataPerCapita(userInputDate, userInputType, this.populationProcessor.getZipPopulation());
-                                    for (Map.Entry<Integer, Double> entry : zipVax.entrySet()) {
-                                        Integer key = entry.getKey();
-                                        Double value = entry.getValue();
-                                        System.out.println(key + " " + value);
+                                    if(zipVax.size() == 0){
+                                        //if no records for date (out of range or no data), return 0
+                                        System.out.println(0);
+                                    }
+                                    else{
+                                        for (Map.Entry<Integer, Double> entry : zipVax.entrySet()) {
+                                            Integer key = entry.getKey();
+                                            Double value = entry.getValue();
+                                            System.out.println(key + " " + value);
+                                        }
                                     }
                                     prompt = false;
                                     datePrompt = false;
@@ -146,6 +161,17 @@ public class Menu {
         }
 
         scanner.close();
+    }
+
+    private boolean isValidDateFormat(String inputDate) {
+        boolean isValid = true;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            formatter.parse(inputDate);
+        } catch (DateTimeParseException e) {
+            isValid = false;
+        }
+        return isValid;
     }
 
 }

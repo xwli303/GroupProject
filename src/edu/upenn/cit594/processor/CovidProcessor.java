@@ -3,11 +3,10 @@ import edu.upenn.cit594.datamanagement.CovidReader;
 import edu.upenn.cit594.datamanagement.ICovidReader;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.PopulationData;
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
-
 import java.time.LocalDate;
 import java.util.*;
-
 
 public class CovidProcessor implements  ICovidProcessor{
     private String filename;
@@ -35,9 +34,14 @@ public class CovidProcessor implements  ICovidProcessor{
     public Map<Integer, Double> getZipVaxDataPerCapita(String date, String vaxType, Set<PopulationData> populationData){
         LocalDate inputDate = this.convertToDate(date);
         List<CovidData> dateCovidData = this.getDataByDate(inputDate);
+
         //match each record with zip
-        //Map<PopulationData, CovidData> zipCovidData = this.matchDataByZip(populationData, dateCovidData );
         Map<Integer, Double> zipVaxData = new HashMap<>();
+
+        //return empty map if date out of range or no data exists for date
+        if(dateCovidData == null || dateCovidData.size() == 0){
+            return zipVaxData;
+        }
 
         //loop thru date's covid data and match with population data by zipcode
         for (CovidData covid: dateCovidData) {
@@ -55,6 +59,8 @@ public class CovidProcessor implements  ICovidProcessor{
                 }
                 //calculate partial or full by capita
                 double vaxPerCapita = (double)vaxCount / matchingZipPop.getPopulation();
+                DecimalFormat df = new DecimalFormat("#.####");
+                vaxPerCapita = Double.parseDouble(df.format(vaxPerCapita));
 
                 zipVaxData.put(matchingZipPop.getZipCode(), vaxPerCapita);
             }
