@@ -1,5 +1,6 @@
 package edu.upenn.cit594.ui;
 
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class Menu {
     public PropertyProcessor propertyProcessor;
     public LivableAreaAverage livableAreaAverage;
     public MarketValueAverage marketValueAverage;
+    public Logger logger = Logger.getInstance();
     public Menu(IPopulationProcessor populationProcessor, ICovidProcessor covidProcessor, PropertyProcessor propertyProcessor,
                 LivableAreaAverage livable, MarketValueAverage marketValue){
         this.populationProcessor = populationProcessor;
@@ -35,7 +37,7 @@ public class Menu {
             System.out.println("4. Show the average market value for properties in a specified ZIP Code.");
             System.out.println("5. Show the average total livable area for properties in a specified ZIP Code.");
             System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
-            System.out.println("7. Show the results of your custom feature.");
+            System.out.println("7. Show the the positive cases per total livable area for a specified ZIP code");
 
             //validate input
             int choice = -1;
@@ -43,6 +45,7 @@ public class Menu {
             while (!validInput) {
                 System.out.print("Enter your choice (0-7): ");
                 String input = scanner.nextLine();
+                logger.log("Main Menu User Input: " + input);
                 try {
                     choice = Integer.parseInt(input);
                     if (choice >= 0 && choice <= 7) {
@@ -83,6 +86,7 @@ public class Menu {
                     while (prompt) {
                         System.out.print("Enter a vaccine type (full/partial): ");
                         String userInputType = scanner.nextLine();
+                        logger.log("Vaccine Per Capita User Input Type: " + userInputType);
 
                         //validate type
                         boolean validType = userInputType.equalsIgnoreCase("full") || userInputType.equalsIgnoreCase("partial");
@@ -93,6 +97,8 @@ public class Menu {
                             while (datePrompt) {
                                 System.out.print("Enter a date (YYYY-MM-DD): ");
                                 String userInputDate = scanner.nextLine();
+                                logger.log("Vaccine Per Capita User Input Date: " + userInputDate);
+
                                 //validate date input
                                 boolean isValidDate = isValidDateFormat(userInputDate);
                                 //if date is empty or invalid, reprompt
@@ -123,28 +129,34 @@ public class Menu {
                     break;
 
                 case 4:
-                    // Perform action 4
+                    // Perform action 4 - average market value for specifiec zip code
                     System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String zipCode = scanner.nextLine();
+                    logger.log("Average Market Value User Input Zip Code: " + zipCode);
+
                     int averageMarketValue = this.propertyProcessor.calculateAverage(zipCode, this.marketValueAverage);
                     System.out.println(averageMarketValue);
                     System.out.println("END OUTPUT");
                     break;
                 case 5:
-                    // Perform action 5
+                    // Perform action 5 - average total livable area
                     System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String input = scanner.nextLine();
+                    logger.log("Average Total Livable Area User Input Zip Code: " + input);
+
                     int avgLivableArea = this.propertyProcessor.calculateAverage(input, this.livableAreaAverage);
                     System.out.println(avgLivableArea);
                     System.out.println("END OUTPUT");
                     break;
                 case 6:
-                    // Perform action 6
+                    // Perform action 6 - total market value per capita
                     System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String zip = scanner.nextLine();
+                    logger.log("Total Market Value Per Capita User Input Zip Code: " + zip);
+
                     int mvPerCapita = this.propertyProcessor.calculateMarketValuePerCapita(zip, this.marketValueAverage);
                     System.out.println(mvPerCapita);
                     System.out.println("END OUTPUT");

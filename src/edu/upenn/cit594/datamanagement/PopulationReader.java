@@ -1,5 +1,6 @@
 package edu.upenn.cit594.datamanagement;
 
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.util.PopulationData;
 
 import java.io.BufferedReader;
@@ -8,11 +9,13 @@ import java.io.IOException;
 import java.util.*;
 
 public class PopulationReader implements IPopulationReader {
+    private Logger logger = Logger.getInstance();
 
     public Set<PopulationData> readCsvFile(String filename) {
         Set<PopulationData> data = new HashSet<>();
         BufferedReader reader = null;
         try {
+            logger.log("Population Reader opening file: " + filename);
             reader = new BufferedReader(new FileReader(filename));
 
             String line;

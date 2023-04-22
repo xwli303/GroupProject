@@ -1,4 +1,5 @@
 package edu.upenn.cit594.datamanagement;
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.util.CovidData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -16,11 +17,14 @@ import java.util.List;
 public class CovidReader implements ICovidReader{
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
     private static final char DELIMITER = ',';
+    private Logger logger = Logger.getInstance();
+
 
     public List<CovidData> readCsvFile(String filename)  {
         List<CovidData> data = new ArrayList<>();
         BufferedReader reader = null;
         try {
+            logger.log("Covid Reader opening file: " + filename);
             reader = new BufferedReader(new FileReader(filename));
 
         String line;
@@ -51,6 +55,7 @@ public class CovidReader implements ICovidReader{
         List<CovidData> covidRecords = new ArrayList<>();
         try {
             JSONParser parser = new JSONParser();
+            logger.log("Covid Reader opening file: " + filename);
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             JSONArray jsonArray = (JSONArray) parser.parse(reader);
 

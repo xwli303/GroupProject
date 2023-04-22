@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
+import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.util.PropertyData;
 
 public class CSVPropertyReader implements PropertyReader {
@@ -23,8 +24,10 @@ public class CSVPropertyReader implements PropertyReader {
     private int mvIndex;
     private int tlaIndex;
     private int zcIndex;
+    private Logger logger = Logger.getInstance();
 
     public CSVPropertyReader(String filename) throws IOException {
+        logger.log("CSVProperty Reader opening file: " + filename);
         file = new File(filename);
         fileReader = new FileReader(file);
         bufferedReader = new BufferedReader(fileReader);

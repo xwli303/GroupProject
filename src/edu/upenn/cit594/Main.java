@@ -30,6 +30,9 @@ public class Main {
         LivableAreaAverage livableAreaAverage = new LivableAreaAverage();
         MarketValueAverage marketValueAverage = new MarketValueAverage();
 
+        //log command line arguments
+        logger.log("Command Line Arguments: " + covid + " " + properties + " " + log);
+
         Menu menu = new Menu(populationProcessor, covidProcessor, propertyProcessor, livableAreaAverage, marketValueAverage);
         menu.ShowMenu();
     }
