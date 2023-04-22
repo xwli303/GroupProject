@@ -35,7 +35,7 @@ public class Menu {
             System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
             System.out.println("7. Show the results of your custom feature.");
 
-            int choice = scanner.nextInt();
+            int choice = Integer.parseInt(scanner.nextLine());
             switch (choice) {
                 case 0:
                     exit = true;
@@ -60,21 +60,36 @@ public class Menu {
                 case 3:
                     // Perform action 3
                     System.out.println("BEGIN OUTPUT");
-                    System.out.print("Enter a vaccine type (full/partial): ");
-                    String userInputType = scanner.nextLine();
-                    
-                    System.out.print("Enter a date (YYYY-MM-DD): ");
-                    String userInputDate = scanner.nextLine();
+                    boolean prompt = true;
+                    while (prompt) {
+                        System.out.print("Enter a vaccine type (full/partial): ");
+                        String userInputType = scanner.nextLine();
 
-                    Map<Integer, Double> zipVax =
-                            this.covidProcessor.getZipVaxDataPerCapita(userInputDate, userInputType, this.populationProcessor.getZipPopulation());
-                    for (Map.Entry<Integer, Double> entry : zipVax.entrySet()) {
-                        Integer key = entry.getKey();
-                        Double value = entry.getValue();
-                        System.out.println(key + " " + value);
+                        if (!userInputType.isEmpty()) {
+                            boolean datePrompt = true;
+                            while (datePrompt) {
+                                System.out.print("Enter a date (YYYY-MM-DD): ");
+                                String userInputDate = scanner.nextLine();
+                                if (!userInputDate.isEmpty()) {
+                                    Map<Integer, Double> zipVax =
+                                            this.covidProcessor.getZipVaxDataPerCapita(userInputDate, userInputType, this.populationProcessor.getZipPopulation());
+                                    for (Map.Entry<Integer, Double> entry : zipVax.entrySet()) {
+                                        Integer key = entry.getKey();
+                                        Double value = entry.getValue();
+                                        System.out.println(key + " " + value);
+                                    }
+                                    prompt = false;
+                                    datePrompt = false;
+                                } else {
+                                    System.out.print("Invalid input. Please enter a date (YYYY-MM-DD): ");
+                                }
+                            }
+                        }
+
                     }
                     System.out.println("END OUTPUT");
                     break;
+
                 case 4:
                     // Perform action 4
                     System.out.println("BEGIN OUTPUT");
