@@ -35,7 +35,24 @@ public class Menu {
             System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
             System.out.println("7. Show the results of your custom feature.");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            //validate input
+            int choice = -1;
+            boolean validInput = false;
+            while (!validInput) {
+                System.out.print("Enter your choice (0-7): ");
+                String input = scanner.nextLine();
+                try {
+                    choice = Integer.parseInt(input);
+                    if (choice >= 0 && choice <= 7) {
+                        validInput = true;
+                    } else {
+                        System.out.println("Invalid input: Input must be between 0 and 7.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: Invalid input. Please enter a valid integer.");
+                }
+            }
+
             switch (choice) {
                 case 0:
                     exit = true;

@@ -1,5 +1,3 @@
-package edu.upenn.cit594.studenttests;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +27,7 @@ public class BasicTests {
 	 */
 	@Before
 	public void blockExit() {
+
 		System.setSecurityManager(new SecurityManager() {
 			public void checkExit(int status) {
 				SecurityException se = new SecurityException("Student code called System.exit");
