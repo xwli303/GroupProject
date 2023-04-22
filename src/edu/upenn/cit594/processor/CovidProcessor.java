@@ -3,6 +3,7 @@ import edu.upenn.cit594.datamanagement.CovidReader;
 import edu.upenn.cit594.datamanagement.ICovidReader;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.PopulationData;
+import java.time.format.DateTimeFormatter;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -31,7 +32,8 @@ public class CovidProcessor implements  ICovidProcessor{
         return covidData;
     };
 
-    public Map<Integer, Double> getZipVaxDataPerCapita(LocalDate inputDate, String vaxType, Set<PopulationData> populationData){
+    public Map<Integer, Double> getZipVaxDataPerCapita(String date, String vaxType, Set<PopulationData> populationData){
+        LocalDate inputDate = this.convertToDate(date);
         List<CovidData> dateCovidData = this.getDataByDate(inputDate);
         //match each record with zip
         //Map<PopulationData, CovidData> zipCovidData = this.matchDataByZip(populationData, dateCovidData );
@@ -102,6 +104,12 @@ public class CovidProcessor implements  ICovidProcessor{
             }
         }
         return zipMap;
+    }
+
+    private LocalDate convertToDate(String userInput) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate date = LocalDate.parse(userInput, formatter);
+        return date;
     }
 
 }

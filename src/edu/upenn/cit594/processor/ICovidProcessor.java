@@ -11,7 +11,7 @@ import java.util.Set;
 public interface ICovidProcessor {
     List<CovidData> getAllCovidData();
 
-    Map<Integer, Double> getZipVaxDataPerCapita(LocalDate inputDate, String vaxType, Set<PopulationData> populationData);
+    Map<Integer, Double> getZipVaxDataPerCapita(String inputDate, String vaxType, Set<PopulationData> populationData);
 
     Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData);
 }

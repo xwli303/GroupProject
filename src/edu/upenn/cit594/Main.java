@@ -1,40 +1,37 @@
 package edu.upenn.cit594;
 
-import edu.upenn.cit594.datamanagement.CovidReader;
-import edu.upenn.cit594.datamanagement.ICovidReader;
 
-import edu.upenn.cit594.processor.CovidProcessor;
-import edu.upenn.cit594.processor.ICovidProcessor;
-import edu.upenn.cit594.processor.IPopulationProcessor;
-import edu.upenn.cit594.processor.PopulationProcessor;
+import edu.upenn.cit594.datamanagement.CSVPropertyReader;
+import edu.upenn.cit594.datamanagement.PropertyReader;
+import edu.upenn.cit594.logging.Logger;
+import edu.upenn.cit594.processor.*;
+import edu.upenn.cit594.ui.Menu;
 
-import edu.upenn.cit594.util.PopulationData;
-
-import java.time.LocalDate;
-import java.util.*;
-
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-
-        ICovidReader covidReader = new CovidReader();
-        IPopulationProcessor populationProcessor = new PopulationProcessor("population.csv");
-        ICovidProcessor covidProcessor = new CovidProcessor("covid_data.csv");
-
-        Set<PopulationData> populationData = populationProcessor.getZipPopulation();
-        //total population
-        int totalPopulation = populationProcessor.getTotalPopulation();
-        System.out.println(totalPopulation);
-
-        //vax per capita
-        LocalDate date = LocalDate.parse("2021-03-25");
-        Map<Integer, Double> dateVaxData = covidProcessor.getZipVaxDataPerCapita(date, "full", populationData);
-        for (Map.Entry<Integer, Double> entry : dateVaxData.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+    public static void main(String[] args) throws IOException {
+        if (args.length != 4) {
+            System.err.println("Error: invalid number of arguments.");
+            return;
         }
 
+        String covid = args[0];
+        String properties = args[1];
+        String population = args[2];
+        String log = args[3];
 
+        Logger logger = Logger.getInstance();
+        ICovidProcessor covidProcessor = new CovidProcessor(covid);
+        IPopulationProcessor populationProcessor = new PopulationProcessor(population);
+        //property
+        PropertyReader propertyReader = new CSVPropertyReader(properties);
+        PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader);
+        LivableAreaAverage livableAreaAverage = new LivableAreaAverage();
+        MarketValueAverage marketValueAverage = new MarketValueAverage();
 
+        Menu menu = new Menu(populationProcessor, covidProcessor, propertyProcessor, livableAreaAverage, marketValueAverage);
+        menu.ShowMenu();
     }
 
 
