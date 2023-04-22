@@ -7,7 +7,8 @@ import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.util.PropertyData;
 
 public class PropertyProcessor {
-  private PropertyReader propReader;
+
+	private PropertyReader propReader;
 	private Map<String, List<PropertyData>> propMap;
 
 	public PropertyProcessor(PropertyReader pReader) {
@@ -18,14 +19,17 @@ public class PropertyProcessor {
 	public int calculateAverage(String zip, AverageComparator avc) {
 		double sum = 0.0;
 		int numOfProp = 0;
-
+		
 		List<PropertyData> propZipList = propMap.get(zip);
-		if (propZipList.size() == 0) { return 0; } 
+		if ((propZipList == null) || (propZipList.size() == 0)) { return 0; } 
 		
 		for (PropertyData pd : propZipList) {
 			if (avc.containsNumericValue(pd)) {
+				System.out.println("val is " + avc.getNumericValue(pd));
 				sum += avc.getNumericValue(pd);
+				System.out.println("sum is " + sum);
 				numOfProp++;
+				System.out.println("num of prop is " + numOfProp);
 			}
 
 		}
@@ -53,4 +57,5 @@ public class PropertyProcessor {
 		
 		return (int) sum/population;
 	}
+	
 }
