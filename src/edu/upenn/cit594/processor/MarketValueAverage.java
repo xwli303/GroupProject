@@ -1,7 +1,7 @@
 package edu.upenn.cit594.processor;
 import edu.upenn.cit594.util.PropertyData;
 
-public class MarketValueAverage implements AverageComparator {
+public class MarketValueAverage implements IAverageComparator {
 
     public MarketValueAverage() {
         // TODO Auto-generated constructor stub
