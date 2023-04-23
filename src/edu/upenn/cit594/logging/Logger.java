@@ -31,10 +31,10 @@ public class Logger {
 	public void log(String event) {
 		try {
 			if (fileFound == true) {
-				out.write(System.currentTimeMillis() + " " + event);
+				out.write(System.currentTimeMillis() + " " + event + "\n");
 				out.flush();
 			} else {
-				System.err.println(System.currentTimeMillis() + " " + event);
+				System.err.println(System.currentTimeMillis() + " " + event + "\n");
 			}
 		} catch (IOException e) {
 			System.out.println(event + " was unable to be logged");

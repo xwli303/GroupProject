@@ -179,17 +179,26 @@ public class Menu {
                         //if date is empty or invalid, reprompt
                         if (!userInputDate.isEmpty() && isValidDate) {
                             datePrompt = false;
-                            System.out.println("Enter a 5-digit zip code:");
-                            String inputZip = scanner.nextLine();
-                            if(inputZip.length() == 5){
-                                double percent = propertyProcessor.calculateInfectedArea(userInputDate, inputZip, this.livableAreaAverage);
-                                System.out.println("BEGIN OUTPUT");
-                                System.out.println(percent +"%");
-                                System.out.println("END OUTPUT");
+                            boolean zipPrompt = true;
+                            while(zipPrompt){
+                                System.out.println("Enter a 5-digit zip code:");
+                                String inputZip = scanner.nextLine();
+                                if(inputZip.length() == 5){
+                                    double percent = propertyProcessor.calculateInfectedArea(userInputDate, inputZip, this.livableAreaAverage);
+                                    System.out.println("BEGIN OUTPUT");
+                                    System.out.println(percent +"%");
+                                    System.out.println("END OUTPUT");
+                                    zipPrompt = false;
+                                }
+                                else{
+                                    System.out.println("Invalid input. Please enter a 5-digit ZIP code.");
+                                }
                             }
                         }
+                        else {
+                            System.out.println("Invalid input. Please enter a date (YYYY-MM-DD): ");
+                        }
                     }
-
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid action.");
