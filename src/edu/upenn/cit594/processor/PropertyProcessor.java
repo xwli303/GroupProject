@@ -17,7 +17,7 @@ public class PropertyProcessor {
 		propMap = propReader.readPropertyFile();
 	}
 
-	public int calculateAverage(String zip, AverageComparator avc) {
+	public int calculateAverage(String zip, IAverageComparator avc) {
 		double sum = 0.0;
 		int numOfProp = 0;
 
@@ -35,7 +35,7 @@ public class PropertyProcessor {
 		return (int) (sum/numOfProp); 
 	}
 
-	public int calculateMarketValuePerCapita(String zip, AverageComparator avc) {
+	public int calculateMarketValuePerCapita(String zip, IAverageComparator avc) {
 		double sum = 0.0;
 		Set<PopulationData> popSet = PopulationProcessor.populationData;
 
@@ -70,7 +70,7 @@ public class PropertyProcessor {
 		return (int) sum/population;
 	}
 
-	public double calculateInfectedArea(String date, String zip, AverageComparator avc) {
+	public double calculateInfectedArea(String date, String zip, IAverageComparator avc) {
 		double sum = 0.0;
 		Set<PopulationData> popSet = PopulationProcessor.populationData;
 		int population = 0;// replace this with population tally 
