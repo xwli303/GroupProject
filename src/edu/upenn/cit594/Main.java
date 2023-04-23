@@ -52,6 +52,11 @@ public class Main {
 
         // initialize logger
         Logger logger = Logger.getInstance();
+        try {
+			logger.setDestination(log);
+		} catch (IOException e1) {
+			return;
+		}
 
         // initialize processors and menu
         Menu menu = new Menu();
@@ -92,8 +97,5 @@ public class Main {
             System.err.println(e.getMessage());
         }
     }
-
-
-
 
 }
