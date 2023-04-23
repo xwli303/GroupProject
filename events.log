@@ -4,3 +4,26 @@
 1682280542706 Command Line Arguments: covid_data.json properties.csv population.csv events.log
 1682280544917 Main Menu User Input: 7
 1682280549541 Percent Livable Area Infected User Input Date: 2021-03-25
+1682282973059 Covid Reader opening file: covid_data.json
+1682282973259 Population Reader opening file: population.csv
+1682282973261 CSVProperty Reader opening file: properties.csv
+1682282977543 Command Line Arguments: covid_data.json properties.csv population.csv events.log
+1682282982253 Main Menu User Input: 1
+1682282985828 Main Menu User Input: 2
+1682282985828 Population Reader opening file: population.csv
+1682282988283 Main Menu User Input: 3
+1682282990909 Vaccine Per Capita User Input Type: partial
+1682282997213 Vaccine Per Capita User Input Date: 2021-03-27
+1682282997223 Population Reader opening file: population.csv
+1682283002867 Main Menu User Input: 4
+1682283008823 Average Market Value User Input Zip Code: 19105
+1682283011622 Main Menu User Input: 6
+1682283015915 Total Market Value Per Capita User Input Zip Code: 19106
+1682283018846 Main Menu User Input: 7
+1682283024901 Percent Livable Area Infected User Input Date: 2021-03-27
+1682283203853 Covid Reader opening file: covid_data.json
+1682283204020 Population Reader opening file: population.csv
+1682283204023 CSVProperty Reader opening file: properties.csv
+1682283208189 Command Line Arguments: covid_data.json properties.csv population.csv events.log
+1682283210875 Main Menu User Input: 7
+1682283214738 Percent Livable Area Infected User Input Date: 2021-03-25

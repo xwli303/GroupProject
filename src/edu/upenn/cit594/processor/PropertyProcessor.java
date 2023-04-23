@@ -1,4 +1,5 @@
 package edu.upenn.cit594.processor;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +103,9 @@ public class PropertyProcessor {
 			}
 			
 			infectedArea = (posPop * sum)/sum;
+			infectedArea *= 100;
+			DecimalFormat df = new DecimalFormat("#.0000");
+			infectedArea = Double.parseDouble(df.format(infectedArea));
 		
 		} catch (NumberFormatException e) {
 			return 0.0;
