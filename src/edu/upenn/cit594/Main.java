@@ -81,14 +81,14 @@ public class Main {
         if(properties != null){
             PropertyReader propertyReader;
             try {
-                propertyReader = new CSVPropertyReader(properties);
+                propertyReader = new PropertyReader(properties);
             } catch (IOException e) {
                 System.err.println("Error: could not open property file: " + properties);
                 return;
             }
             PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader);
-            LivableAreaAverage livableAreaAverage = new LivableAreaAverage();
-            MarketValueAverage marketValueAverage = new MarketValueAverage();
+            IAverageComaprator livableAreaAverage = new LivableAreaAverage();
+            IAverageComaprator  marketValueAverage = new MarketValueAverage();
             menu.propertyProcessor = propertyProcessor;
             menu.livableAreaAverage = livableAreaAverage;
             menu.marketValueAverage = marketValueAverage;
