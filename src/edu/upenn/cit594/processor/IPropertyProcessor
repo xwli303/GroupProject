@@ -1,0 +1,6 @@
+package edu.upenn.cit594.processor;
+
+public interface IPropertyProcessor {
+	public int calculateAverage(String zip, AverageComparator avc);
+	public int calculateMarketValuePerCapita(String zip, AverageComparator avc);
+}
