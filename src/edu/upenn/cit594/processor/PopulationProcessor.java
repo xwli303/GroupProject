@@ -9,14 +9,15 @@ import java.util.Set;
 public class PopulationProcessor implements IPopulationProcessor{
     private String filename;
     public static Set<PopulationData> populationData = new HashSet<>();
-    public PopulationProcessor (String filename){
+    public PopulationProcessor (String filename) throws IOException {
         this.filename = filename;
+        populationData = this.getZipPopulation();
     }
 
     private IPopulationReader populationReader = new PopulationReader();
     //call this method to get population zipcode population
     public Set<PopulationData> getZipPopulation () throws IOException {
-        Set zipPopulation = new HashSet<>();
+        Set <PopulationData>zipPopulation = new HashSet<>();
         zipPopulation = populationReader.readCsvFile(this.filename);
         populationData = zipPopulation;
         return zipPopulation;
@@ -32,7 +33,4 @@ public class PopulationProcessor implements IPopulationProcessor{
         return totalPopulation;
     }
 
-    public static Set<PopulationData> getAllPopulationData(){
-        return populationData;
-    }
 }

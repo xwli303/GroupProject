@@ -1,6 +1,4 @@
 package edu.upenn.cit594;
-
-
 import edu.upenn.cit594.datamanagement.CSVPropertyReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.logging.Logger;
@@ -71,7 +69,12 @@ public class Main {
         }
 
         if(population != null){
-            IPopulationProcessor populationProcessor = new PopulationProcessor(population);
+            IPopulationProcessor populationProcessor = null;
+            try {
+                populationProcessor = new PopulationProcessor(population);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             menu.populationProcessor = populationProcessor;
         }
 
