@@ -1,6 +1,8 @@
 package edu.upenn.cit594.ui;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
+
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
@@ -16,7 +18,7 @@ public class Menu {
     public Menu(){
 
     }
-    public void ShowMenu () {
+    public void ShowMenu () throws IOException {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 

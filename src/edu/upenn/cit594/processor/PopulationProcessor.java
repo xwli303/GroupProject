@@ -4,6 +4,7 @@ import edu.upenn.cit594.datamanagement.IPopulationReader;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.util.PopulationData;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,14 +17,14 @@ public class PopulationProcessor implements IPopulationProcessor{
 
     private IPopulationReader populationReader = new PopulationReader();
     //call this method to get population zipcode population
-    public Set<PopulationData> getZipPopulation () {
+    public Set<PopulationData> getZipPopulation () throws IOException {
         Set zipPopulation = new HashSet<>();
         zipPopulation = populationReader.readCsvFile(this.filename);
         populationData = zipPopulation;
         return zipPopulation;
     }
 
-    public int getTotalPopulation() {
+    public int getTotalPopulation() throws IOException {
         Set<PopulationData> zipPopulation = this.getZipPopulation();
         int totalPopulation = 0;
         for (PopulationData zip : zipPopulation

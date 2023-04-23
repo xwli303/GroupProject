@@ -21,8 +21,6 @@ public class Main {
             Matcher matcher = pattern.matcher(arg);
             //if arguments to main do not match pattern --name=value
             if (!matcher.matches()) {
-                System.out.println("Error: invalid argument format: " + arg);
-
                 System.err.println("Error: invalid argument format: " + arg);
                 return;
             }
@@ -30,14 +28,12 @@ public class Main {
             String value = matcher.group("value");
             //name of arg is not one of the names listed above
             if (!Arrays.asList("covid", "properties", "population", "log").contains(name)) {
-
                 System.err.println("Error: invalid argument name: " + name);
                 return;
             }
             //name of arg is used more than once
             if (arguments.containsKey(name)) {
-
-                System.err.println("Error: argument " + name + " specified more than once.");
+                System.err.println("Error: argument " + name + " is used more than once.");
                 return;
             }
             arguments.put(name, value);
@@ -48,12 +44,11 @@ public class Main {
         String population = arguments.get("population");
         String log = arguments.get("log");
 
+        //if covid file format is not .csv or json
         if(!covid.toLowerCase().endsWith(".csv") && !covid.toLowerCase().endsWith(".json")){
-
-            System.err.println("Error: covid file has invalid extension, must be .csv or .json");
+            System.err.println("Error: covid file has invalid extension: " + covid + ". Must be .csv or .json");
             return;
         }
-
 
         // initialize logger
         Logger logger = Logger.getInstance();
@@ -62,12 +57,7 @@ public class Main {
         Menu menu = new Menu();
         if(covid != null){
             ICovidProcessor covidProcessor;
-            try {
-                covidProcessor = new CovidProcessor(covid);
-            } catch (IllegalArgumentException e) {
-                System.err.println("Error: could not determine COVID data file format from filename extension: " + covid);
-                return;
-            }
+            covidProcessor = new CovidProcessor(covid);
             menu.covidProcessor = covidProcessor;
         }
 
@@ -81,7 +71,7 @@ public class Main {
             try {
                 propertyReader = new CSVPropertyReader(properties);
             } catch (IOException e) {
-                System.err.println("Error: could not open property values file: " + properties);
+                System.err.println("Error: could not open property file: " + properties);
                 return;
             }
             PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader);
@@ -96,7 +86,11 @@ public class Main {
         logger.log("Command Line Arguments: " + covid + " " + properties + " " + population + " " + log);
 
         // show menu
-        menu.ShowMenu();
+        try {
+            menu.ShowMenu();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
 

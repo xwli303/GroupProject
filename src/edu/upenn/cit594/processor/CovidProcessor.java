@@ -3,13 +3,15 @@ import edu.upenn.cit594.datamanagement.CovidReader;
 import edu.upenn.cit594.datamanagement.ICovidReader;
 import edu.upenn.cit594.util.CovidData;
 import edu.upenn.cit594.util.PopulationData;
+
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CovidProcessor implements  ICovidProcessor{
+public class CovidProcessor implements ICovidProcessor{
     private String filename;
 
     public CovidProcessor (String filename){
@@ -17,7 +19,7 @@ public class CovidProcessor implements  ICovidProcessor{
     }
     private ICovidReader covidReader = new CovidReader();
 
-    public List<CovidData> getAllCovidData(){
+    public List<CovidData> getAllCovidData() throws IOException {
         List<CovidData> covidData = new ArrayList<>();
         //determine file type
         if(this.filename.endsWith(".csv")){
@@ -26,13 +28,10 @@ public class CovidProcessor implements  ICovidProcessor{
         else if(this.filename.endsWith(".json")){
             covidData = covidReader.readJsonFile(this.filename);
         }
-        else {
-            //error out - invalid file extension
-        }
         return covidData;
     };
 
-    public Map<Integer, Double> getZipVaxDataPerCapita(String date, String vaxType, Set<PopulationData> populationData){
+    public Map<Integer, Double> getZipVaxDataPerCapita(String date, String vaxType, Set<PopulationData> populationData) throws IOException {
         LocalDate inputDate = this.convertToDate(date);
         List<CovidData> dateCovidData = this.getDataByDate(inputDate);
 
@@ -70,7 +69,7 @@ public class CovidProcessor implements  ICovidProcessor{
         return zipVaxData;
     }
 
-    public Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData) {
+    public Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData) throws IOException {
         Map<Integer, Integer> zipPositive = new HashMap<>();
         List<CovidData> covidData = this.getAllCovidData();
         for (CovidData covid : covidData) {
@@ -86,7 +85,7 @@ public class CovidProcessor implements  ICovidProcessor{
     }
 
 
-    private List<CovidData> getDataByDate(LocalDate inputDate){
+    private List<CovidData> getDataByDate(LocalDate inputDate) throws IOException {
         List<CovidData> allCovidData = this.getAllCovidData();
         //filter covidData for the input data
         List<CovidData> inputDateCovidData = allCovidData.stream()

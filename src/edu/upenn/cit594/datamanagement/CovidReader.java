@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -20,10 +21,9 @@ public class CovidReader implements ICovidReader{
     private Logger logger = Logger.getInstance();
 
 
-    public List<CovidData> readCsvFile(String filename)  {
+    public List<CovidData> readCsvFile(String filename) throws IOException {
         List<CovidData> data = new ArrayList<>();
         BufferedReader reader = null;
-        try {
             logger.log("Covid Reader opening file: " + filename);
             reader = new BufferedReader(new FileReader(filename));
 
@@ -45,21 +45,24 @@ public class CovidReader implements ICovidReader{
             }
         }
         reader.close();
-        } catch (IOException e) {
-            //log error
-        }
+
         return data;
     }
 
-    public List<CovidData> readJsonFile(String filename) {
+    public List<CovidData> readJsonFile(String filename) throws IOException {
         List<CovidData> covidRecords = new ArrayList<>();
-        try {
+
             JSONParser parser = new JSONParser();
             logger.log("Covid Reader opening file: " + filename);
             BufferedReader reader = new BufferedReader(new FileReader(filename));
-            JSONArray jsonArray = (JSONArray) parser.parse(reader);
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = (JSONArray) parser.parse(reader);
+        }  catch (org.json.simple.parser.ParseException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
-            for (Object obj : jsonArray) {
+        for (Object obj : jsonArray) {
                 JSONObject jsonData = (JSONObject) obj;
                 int zipCode = ((Long)jsonData.get("zip_code")).intValue();
                 int negative = jsonData.containsKey("NEG") ? ((Long) jsonData.get("NEG")).intValue() : 0;
@@ -67,9 +70,14 @@ public class CovidReader implements ICovidReader{
                 int hospitalized = jsonData.containsKey("hospitalized") ? ((Long) jsonData.get("hospitalized")).intValue() : 0;
                 int partial = jsonData.containsKey("partially_vaccinated") ? ((Long) jsonData.get("partially_vaccinated")).intValue() : 0;
                 int full = jsonData.containsKey("fully_vaccinated") ? ((Long) jsonData.get("fully_vaccinated")).intValue() : 0;
-                LocalDate date = DATE_FORMAT.parse((String) jsonData.get("etl_timestamp")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate date = null;
+            try {
+                date = DATE_FORMAT.parse((String) jsonData.get("etl_timestamp")).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
-                CovidData data = new CovidData();
+            CovidData data = new CovidData();
                 data.setZipCode(zipCode);
                 data.setNegative(negative);
                 data.setPositive(positive);
@@ -81,11 +89,8 @@ public class CovidReader implements ICovidReader{
                 covidRecords.add(data);
             }
             reader.close();
-        } catch (IOException | org.json.simple.parser.ParseException e) {
-            //log error
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+
+
 
         return covidRecords;
     }
