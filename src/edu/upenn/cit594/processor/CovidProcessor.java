@@ -60,7 +60,7 @@ public class CovidProcessor implements  ICovidProcessor{
                 }
                 //calculate partial or full by capita
                 double vaxPerCapita = (double)vaxCount / matchingZipPop.getPopulation();
-                DecimalFormat df = new DecimalFormat("#.####");
+                DecimalFormat df = new DecimalFormat("#.0000");
                 vaxPerCapita = Double.parseDouble(df.format(vaxPerCapita));
 
                 zipVaxData.put(matchingZipPop.getZipCode(), vaxPerCapita);

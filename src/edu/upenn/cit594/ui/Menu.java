@@ -1,9 +1,6 @@
 package edu.upenn.cit594.ui;
-
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
-
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
@@ -16,13 +13,8 @@ public class Menu {
     public LivableAreaAverage livableAreaAverage;
     public MarketValueAverage marketValueAverage;
     public Logger logger = Logger.getInstance();
-    public Menu(IPopulationProcessor populationProcessor, ICovidProcessor covidProcessor, PropertyProcessor propertyProcessor,
-                LivableAreaAverage livable, MarketValueAverage marketValue){
-        this.populationProcessor = populationProcessor;
-        this.covidProcessor = covidProcessor;
-        this.propertyProcessor = propertyProcessor;
-        this.livableAreaAverage = livable;
-        this.marketValueAverage = marketValue;
+    public Menu(){
+
     }
     public void ShowMenu () {
         Scanner scanner = new Scanner(System.in);
@@ -43,7 +35,7 @@ public class Menu {
             int choice = -1;
             boolean validInput = false;
             while (!validInput) {
-                System.out.print("Enter your choice (0-7): ");
+                System.out.println("Enter your choice (0-7): ");
                 String input = scanner.nextLine();
                 logger.log("Main Menu User Input: " + input);
                 try {
@@ -81,10 +73,9 @@ public class Menu {
                     break;
                 case 3:
                     // Perform action 3
-                    System.out.println("BEGIN OUTPUT");
                     boolean prompt = true;
                     while (prompt) {
-                        System.out.print("Enter a vaccine type (full/partial): ");
+                        System.out.println("Enter a vaccine type (full/partial): ");
                         String userInputType = scanner.nextLine();
                         logger.log("Vaccine Per Capita User Input Type: " + userInputType);
 
@@ -95,7 +86,7 @@ public class Menu {
                         if (!userInputType.isEmpty() && validType) {
                             boolean datePrompt = true;
                             while (datePrompt) {
-                                System.out.print("Enter a date (YYYY-MM-DD): ");
+                                System.out.println("Enter a date (YYYY-MM-DD): ");
                                 String userInputDate = scanner.nextLine();
                                 logger.log("Vaccine Per Capita User Input Date: " + userInputDate);
 
@@ -106,20 +97,23 @@ public class Menu {
                                     Map<Integer, Double> zipVax =
                                             this.covidProcessor.getZipVaxDataPerCapita(userInputDate, userInputType, this.populationProcessor.getZipPopulation());
                                     if(zipVax.size() == 0){
+                                        System.out.println("BEGIN OUTPUT");
                                         //if no records for date (out of range or no data), return 0
                                         System.out.println(0);
                                     }
                                     else{
+                                        System.out.println("BEGIN OUTPUT");
+
                                         for (Map.Entry<Integer, Double> entry : zipVax.entrySet()) {
                                             Integer key = entry.getKey();
                                             Double value = entry.getValue();
-                                            System.out.println(key + " " + value);
+                                            System.out.println(key + " " + String.format("%.4f", value));
                                         }
                                     }
                                     prompt = false;
                                     datePrompt = false;
                                 } else {
-                                    System.out.print("Invalid input. Please enter a date (YYYY-MM-DD): ");
+                                    System.out.println("Invalid input. Please enter a date (YYYY-MM-DD): ");
                                 }
                             }
                         }

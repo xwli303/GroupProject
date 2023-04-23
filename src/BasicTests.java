@@ -27,7 +27,6 @@ public class BasicTests {
 	 */
 	@Before
 	public void blockExit() {
-
 		System.setSecurityManager(new SecurityManager() {
 			public void checkExit(int status) {
 				SecurityException se = new SecurityException("Student code called System.exit");
