@@ -1,5 +1,4 @@
 package edu.upenn.cit594.processor;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,9 +22,7 @@ public class PropertyProcessor {
 		int numOfProp = 0;
 
 		List<PropertyData> propZipList = propMap.get(zip);
-		if ((propZipList == null) || (propZipList.size() == 0)) {
-			return 0;
-		}
+		if ((propZipList == null) || (propZipList.size() == 0)) { return 0; } 
 
 		for (PropertyData pd : propZipList) {
 			if (avc.containsNumericValue(pd)) {
@@ -35,7 +32,7 @@ public class PropertyProcessor {
 
 		}
 
-		return (int) (sum / numOfProp);
+		return (int) (sum/numOfProp); 
 	}
 
 	public int calculateMarketValuePerCapita(String zip, AverageComparator avc) {
@@ -47,21 +44,17 @@ public class PropertyProcessor {
 			int z = Integer.parseInt(zip);
 
 			for (PopulationData zPop : popSet) {
-				if (zPop.getZipCode() == z) {
+				if (zPop.getZipCode() == z) { 
 					population = zPop.getPopulation();
 
-					break;
+					break; 
 				}
 			}
 
-			if ((population == 0) || (!propMap.containsKey(zip))) {
-				return 0;
-			}
+			if ((population == 0) || (!propMap.containsKey(zip))) { return 0; }
 
 			List<PropertyData> propZipList = propMap.get(zip);
-			if ((propZipList == null) || (propZipList.size() == 0)) {
-				return 0;
-			}
+			if ((propZipList == null) || (propZipList.size() == 0)) { return 0; } 
 
 			for (PropertyData pd : propZipList) {
 				if (avc.containsNumericValue(pd)) {
@@ -74,8 +67,7 @@ public class PropertyProcessor {
 			return 0;
 		}
 
-
-		return (int) sum / population;
+		return (int) sum/population;
 	}
 
 	public double calculateInfectedArea(String date, String zip, AverageComparator avc) {
@@ -88,38 +80,29 @@ public class PropertyProcessor {
 		try {
 			int z = Integer.parseInt(zip);
 			for (PopulationData zPop : popSet) {
-				if (zPop.getZipCode() == z) {
+				if (zPop.getZipCode() == z) { 
 					population = zPop.getPopulation();
-					break;
+					break; 
 				}
 			}
-			System.out.println("population is " + population);
+
 			positiveCases = CovidProcessor.getPosCasesByZipDate(date, zip);
-			System.out.println("positive cases are " + positiveCases);
-
-			if ((population == 0) || (positiveCases == 0) || (!propMap.containsKey(zip))) {
-				return 0.0;
-			}
-			posPop = (double) positiveCases / population;
-			posPop *= 100;
-			DecimalFormat df = new DecimalFormat("#.0000");
-			posPop = Double.parseDouble(df.format(posPop));
-
+			
+			if ((population == 0) || (positiveCases == 0) ||(!propMap.containsKey(zip))) { return 0.0; }
+			
+			posPop = (double)positiveCases/population;
+			
 			List<PropertyData> propZipList = propMap.get(zip);
-			if ((propZipList == null) || (propZipList.size() == 0)) {
-				return 0.0;
-			}
-
+			if ((propZipList == null) || (propZipList.size() == 0)) { return 0.0; } 
 
 			for (PropertyData pd : propZipList) {
 				if (avc.containsNumericValue(pd)) {
 					sum += avc.getNumericValue(pd);
 				}
 			}
-			//System.out.println("sum is " + sum);
-			//System.out.println("pc/pop " + (posPop));
-			infectedArea = (posPop * sum) / sum;
-			//System.out.println("infected area is" + infectedArea);
+			
+			infectedArea = (posPop * sum)/sum;
+		
 		} catch (NumberFormatException e) {
 			return 0.0;
 		}
@@ -127,4 +110,7 @@ public class PropertyProcessor {
 
 		return infectedArea;
 	}
+
+
+
 }
