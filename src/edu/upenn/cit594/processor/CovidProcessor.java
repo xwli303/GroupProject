@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CovidProcessor implements  ICovidProcessor{
     private String filename;
@@ -90,7 +91,7 @@ public class CovidProcessor implements  ICovidProcessor{
         //filter covidData for the input data
         List<CovidData> inputDateCovidData = allCovidData.stream()
                 .filter(data -> data.getVaccination().equals(inputDate))
-                .toList();
+                .collect(Collectors.toList());
 
         return inputDateCovidData;
     }
