@@ -1,5 +1,5 @@
 package edu.upenn.cit594;
-import edu.upenn.cit594.datamanagement.CSVPropertyReader;
+import edu.upenn.cit594.datamanagement.IPropertyReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
@@ -87,8 +87,8 @@ public class Main {
                 return;
             }
             PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader);
-            IAverageComaprator livableAreaAverage = new LivableAreaAverage();
-            IAverageComaprator  marketValueAverage = new MarketValueAverage();
+            LivableAreaAverage livableAreaAverage = new LivableAreaAverage();
+            MarketValueAverage  marketValueAverage = new MarketValueAverage();
             menu.propertyProcessor = propertyProcessor;
             menu.livableAreaAverage = livableAreaAverage;
             menu.marketValueAverage = marketValueAverage;
