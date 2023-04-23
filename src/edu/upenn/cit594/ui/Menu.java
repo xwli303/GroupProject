@@ -169,15 +169,27 @@ public class Menu {
                     //pos/population = % infected
                     //multiply %infect * total livable area
                     // output: % livable area infected
+                    boolean datePrompt = true;
+                    while (datePrompt) {
+                        System.out.println("Enter a date (YYYY-MM-DD): ");
+                        String userInputDate = scanner.nextLine();
+                        logger.log("Percent Livable Area Infected User Input Date: " + userInputDate);
+                        //validate date input
+                        boolean isValidDate = isValidDateFormat(userInputDate);
+                        //if date is empty or invalid, reprompt
+                        if (!userInputDate.isEmpty() && isValidDate) {
+                            datePrompt = false;
+                            System.out.println("Enter a 5-digit zip code:");
+                            String inputZip = scanner.nextLine();
+                            if(inputZip.length() == 5){
+                                double percent = propertyProcessor.calculateInfectedArea(userInputDate, inputZip, this.livableAreaAverage);
+                                System.out.println("BEGIN OUTPUT");
+                                System.out.println(percent +"%");
+                                System.out.println("END OUTPUT");
+                            }
+                        }
+                    }
 
-                    System.out.println("BEGIN OUTPUT");
-                    String date ;
-                    //call covid processor method  get positive cases = int positiveCases
-                    //boolean isValidDate = isValidDateFormat(date);
-                    int posCase = getPosCasesByZipDate("2021-03-25", "19103");
-                    System.out.println(posCase);
-
-                    System.out.println("END OUTPUT");
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid action.");
