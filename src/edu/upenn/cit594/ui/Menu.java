@@ -55,6 +55,7 @@ public class Menu {
                     exit = true;
                     break;
                 case 1:
+                    System.out.println("BEGIN OUTPUT");
                     System.out.println("Available actions:");
                     System.out.println("1. Show the available actions.");
                     System.out.println("2. Show the total population for all ZIP Codes.");
@@ -63,6 +64,8 @@ public class Menu {
                     System.out.println("5. Show the average total livable area for properties in a specified ZIP Code.");
                     System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
                     System.out.println("7. Show the results of your custom feature.");
+                    System.out.println("END OUTPUT");
+
                     break;
                 case 2:
                     // Perform action 2
