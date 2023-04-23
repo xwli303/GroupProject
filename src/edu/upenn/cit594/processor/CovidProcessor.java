@@ -13,22 +13,25 @@ import java.util.stream.Collectors;
 
 public class CovidProcessor implements ICovidProcessor{
     private String filename;
+    public static List<CovidData> covidData;
 
-    public CovidProcessor (String filename){
+    public CovidProcessor (String filename ) throws IOException {
         this.filename = filename;
+        this.covidData = this.getAllCovidData();
     }
     private ICovidReader covidReader = new CovidReader();
 
     public List<CovidData> getAllCovidData() throws IOException {
-        List<CovidData> covidData = new ArrayList<>();
+        List<CovidData> allCovidData = new ArrayList<>();
         //determine file type
         if(this.filename.endsWith(".csv")){
-            covidData = covidReader.readCsvFile(this.filename);
+            allCovidData = covidReader.readCsvFile(this.filename);
         }
         else if(this.filename.endsWith(".json")){
-            covidData = covidReader.readJsonFile(this.filename);
+            allCovidData = covidReader.readJsonFile(this.filename);
         }
-        return covidData;
+        covidData = allCovidData;
+        return allCovidData;
     };
 
     public Map<Integer, Double> getZipVaxDataPerCapita(String date, String vaxType, Set<PopulationData> populationData) throws IOException {
@@ -65,34 +68,29 @@ public class CovidProcessor implements ICovidProcessor{
                 zipVaxData.put(matchingZipPop.getZipCode(), vaxPerCapita);
             }
         }
-
         return zipVaxData;
     }
 
-    public Map<Integer, Integer> getZipPositiveCases(Set<PopulationData> populationData) throws IOException {
-        Map<Integer, Integer> zipPositive = new HashMap<>();
-        List<CovidData> covidData = this.getAllCovidData();
-        for (CovidData covid : covidData) {
-            PopulationData matchingZipPop = populationData.stream()
-                    .filter(obj -> obj.getZipCode() == covid.getZipCode())
-                    .findFirst()
-                    .orElse(null);
-            if (matchingZipPop != null) {
-                zipPositive.put(matchingZipPop.getZipCode(), covid.getPositive());
-            }
+    public static int getPosCasesByZipDate(String date, String zipCode){
+        int posCases = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate inputDate = LocalDate.parse(date, formatter);
+
+        CovidData inputDateCovidData = covidData.stream()
+                .filter(data -> data.getVaccination().equals(inputDate) && data.getZipCode() == Integer.parseInt(zipCode))
+                .findFirst()
+                .orElse(null);
+        if(inputDateCovidData != null){
+            posCases = inputDateCovidData.getPositive();
         }
-        return zipPositive;
+        return posCases;
     }
 
-
     private List<CovidData> getDataByDate(LocalDate inputDate) throws IOException {
-        List<CovidData> allCovidData = this.getAllCovidData();
         //filter covidData for the input data
-        List<CovidData> inputDateCovidData = allCovidData.stream()
+        return covidData.stream()
                 .filter(data -> data.getVaccination().equals(inputDate))
                 .collect(Collectors.toList());
-
-        return inputDateCovidData;
     }
 
     //match DateCovidDate with Zipcode, may not be needed

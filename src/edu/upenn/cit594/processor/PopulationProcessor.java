@@ -1,9 +1,7 @@
 package edu.upenn.cit594.processor;
-
 import edu.upenn.cit594.datamanagement.IPopulationReader;
 import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.util.PopulationData;
-
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,7 +29,6 @@ public class PopulationProcessor implements IPopulationProcessor{
              ) {
             totalPopulation += zip.getPopulation();
         }
-
         return totalPopulation;
     }
 

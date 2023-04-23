@@ -50,9 +50,7 @@ public class PropertyProcessor {
 			if (avc.containsNumericValue(pd)) {
 				sum += avc.getNumericValue(pd);
 			}
-
 		}
-		
 		return (int) sum/population;
 	}
 	

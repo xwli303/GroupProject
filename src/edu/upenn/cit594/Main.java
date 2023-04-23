@@ -57,7 +57,11 @@ public class Main {
         Menu menu = new Menu();
         if(covid != null){
             ICovidProcessor covidProcessor;
-            covidProcessor = new CovidProcessor(covid);
+            try {
+                covidProcessor = new CovidProcessor(covid);
+            } catch (IOException e) {
+                throw new RuntimeException(e.getMessage());
+            }
             menu.covidProcessor = covidProcessor;
         }
 

@@ -1,5 +1,4 @@
 package edu.upenn.cit594.datamanagement;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.util.PropertyData;
 

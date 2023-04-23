@@ -1,12 +1,14 @@
 package edu.upenn.cit594.ui;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
-
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Scanner;
+
+import static edu.upenn.cit594.processor.CovidProcessor.getPosCasesByZipDate;
+
 
 public class Menu {
     public IPopulationProcessor populationProcessor;
@@ -161,8 +163,19 @@ public class Menu {
                     System.out.println("END OUTPUT");
                     break;
                 case 7:
-                    // Perform action 7
+                    //total livable area in zipcode
+                    //positive case for a date
+                    //get pop for zipcode
+                    //pos/population = % infected
+                    //multiply %infect * total livable area
+                    // output: % livable area infected
+
                     System.out.println("BEGIN OUTPUT");
+                    String date ;
+                    //call covid processor method  get positive cases = int positiveCases
+                    //boolean isValidDate = isValidDateFormat(date);
+                    int posCase = getPosCasesByZipDate("2021-03-25", "19103");
+                    System.out.println(posCase);
 
                     System.out.println("END OUTPUT");
                     break;
@@ -170,7 +183,6 @@ public class Menu {
                     System.out.println("Invalid choice. Please select a valid action.");
             }
         }
-
         scanner.close();
     }
 
@@ -184,6 +196,5 @@ public class Menu {
         }
         return isValid;
     }
-
 }
 
