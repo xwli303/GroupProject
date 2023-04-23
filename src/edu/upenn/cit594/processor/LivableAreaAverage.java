@@ -1,7 +1,7 @@
 package edu.upenn.cit594.processor;
 import edu.upenn.cit594.util.PropertyData;
 
-public class LivableAreaAverage implements AverageComparator {
+public class LivableAreaAverage implements IAverageComparator {
 
     public LivableAreaAverage() {
         // TODO Auto-generated constructor stub
