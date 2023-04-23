@@ -33,7 +33,7 @@ public class Menu {
             System.out.println("4. Show the average market value for properties in a specified ZIP Code.");
             System.out.println("5. Show the average total livable area for properties in a specified ZIP Code.");
             System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
-            System.out.println("7. Show the the positive cases per total livable area for a specified ZIP code");
+            System.out.println("7. Show the the percent total livable area infected for a specified ZIP code on a specified date");
 
             //validate input
             int choice = -1;
