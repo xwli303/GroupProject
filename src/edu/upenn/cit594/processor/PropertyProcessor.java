@@ -1,19 +1,18 @@
 package edu.upenn.cit594.processor;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import edu.upenn.cit594.datamanagement.PropertyReader;
+import edu.upenn.cit594.datamanagement.IPropertyReader;
 import edu.upenn.cit594.util.PopulationData;
 import edu.upenn.cit594.util.PropertyData;
 
-public class PropertyProcessor {
+public class PropertyProcessor implements IPropertyProcessor {
 
-	private PropertyReader propReader;
+	private IPropertyReader propReader;
 	private Map<String, List<PropertyData>> propMap;
 
-	public PropertyProcessor(PropertyReader pReader) {
+	public PropertyProcessor(IPropertyReader pReader) {
 		propReader = pReader;
 		propMap = propReader.readPropertyFile();
 	}
@@ -68,6 +67,7 @@ public class PropertyProcessor {
 			return 0;
 		}
 
+
 		return (int) sum/population;
 	}
 
@@ -86,27 +86,29 @@ public class PropertyProcessor {
 					break; 
 				}
 			}
-
+			//System.out.println("population is " + population);
 			positiveCases = CovidProcessor.getPosCasesByZipDate(date, zip);
+			//System.out.println("positive cases are " + positiveCases);
 			
 			if ((population == 0) || (positiveCases == 0) ||(!propMap.containsKey(zip))) { return 0.0; }
-			
 			posPop = (double)positiveCases/population;
+			//System.out.println("pc/pop " + (posPop));
 			
 			List<PropertyData> propZipList = propMap.get(zip);
 			if ((propZipList == null) || (propZipList.size() == 0)) { return 0.0; } 
 
+
+
 			for (PropertyData pd : propZipList) {
 				if (avc.containsNumericValue(pd)) {
 					sum += avc.getNumericValue(pd);
+					//System.out.println("in loop sum is " + sum);
 				}
 			}
+			//System.out.println("sum is " + sum);
 			
-			infectedArea = (posPop * sum)/sum;
-			infectedArea *= 100;
-			DecimalFormat df = new DecimalFormat("#.0000");
-			infectedArea = Double.parseDouble(df.format(infectedArea));
-		
+			infectedArea = (posPop * sum);
+			//System.out.println("infected area is" + infectedArea);
 		} catch (NumberFormatException e) {
 			return 0.0;
 		}
