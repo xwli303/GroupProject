@@ -14,3 +14,11 @@
 1682282901128 Vaccine Per Capita User Input Date: 2021-11-05
 1682282901131 Population Reader opening file: population.csv
 1682282901145 Main Menu User Input: 0
+1682384309399 Command Line Arguments: covid_data.json null population.csv small_test1.log
+1682384309399 Covid Reader opening file: covid_data.json
+1682384309498 Population Reader opening file: population.csv
+1682384309500 Main Menu User Input: 3
+1682384309500 Vaccine Per Capita User Input Type: full
+1682384309500 Vaccine Per Capita User Input Date: 2021-11-05
+1682384309502 Population Reader opening file: population.csv
+1682384309518 Main Menu User Input: 0

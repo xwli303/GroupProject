@@ -62,3 +62,64 @@
 1682282930337 Main Menu User Input: 6
 1682282930337 Total Market Value Per Capita User Input Zip Code: 19149
 1682282930339 Main Menu User Input: 0
+1682384309603 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384309603 Covid Reader opening file: covid_data.csv
+1682384309637 Population Reader opening file: population.csv
+1682384309638 CSVProperty Reader opening file: properties.csv
+1682384314782 Main Menu User Input: 1
+1682384314791 Main Menu User Input: 2
+1682384314791 Population Reader opening file: population.csv
+1682384314795 Main Menu User Input: 3
+1682384314795 Vaccine Per Capita User Input Type: full
+1682384314795 Vaccine Per Capita User Input Date: 2021-05-01
+1682384314796 Population Reader opening file: population.csv
+1682384314805 Main Menu User Input: 4
+1682384314807 Average Market Value User Input Zip Code: 19149
+1682384314839 Main Menu User Input: 5
+1682384314839 Average Total Livable Area User Input Zip Code: 19149
+1682384314856 Main Menu User Input: 6
+1682384314856 Total Market Value Per Capita User Input Zip Code: 19149
+1682384314859 Main Menu User Input: 0
+1682384314864 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384314864 Covid Reader opening file: covid_data.csv
+1682384314896 Population Reader opening file: population.csv
+1682384314897 CSVProperty Reader opening file: properties.csv
+1682384319681 Main Menu User Input: 1
+1682384319681 Main Menu User Input: 0
+1682384319682 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384319682 Covid Reader opening file: covid_data.csv
+1682384319712 Population Reader opening file: population.csv
+1682384319713 CSVProperty Reader opening file: properties.csv
+1682384326466 Main Menu User Input: 2
+1682384326466 Population Reader opening file: population.csv
+1682384326466 Main Menu User Input: 0
+1682384326467 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384326467 Covid Reader opening file: covid_data.csv
+1682384326489 Population Reader opening file: population.csv
+1682384326489 CSVProperty Reader opening file: properties.csv
+1682384333325 Main Menu User Input: 3
+1682384333325 Vaccine Per Capita User Input Type: full
+1682384333325 Vaccine Per Capita User Input Date: 2021-05-01
+1682384333325 Population Reader opening file: population.csv
+1682384333335 Main Menu User Input: 0
+1682384333336 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384333336 Covid Reader opening file: covid_data.csv
+1682384333369 Population Reader opening file: population.csv
+1682384333370 CSVProperty Reader opening file: properties.csv
+1682384342620 Main Menu User Input: 4
+1682384342622 Average Market Value User Input Zip Code: 19149
+1682384342632 Main Menu User Input: 0
+1682384342632 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384342632 Covid Reader opening file: covid_data.csv
+1682384342650 Population Reader opening file: population.csv
+1682384342651 CSVProperty Reader opening file: properties.csv
+1682384350431 Main Menu User Input: 5
+1682384350439 Average Total Livable Area User Input Zip Code: 19149
+1682384350450 Main Menu User Input: 0
+1682384350458 Command Line Arguments: covid_data.csv properties.csv population.csv activities.test.log.txt
+1682384350458 Covid Reader opening file: covid_data.csv
+1682384350485 Population Reader opening file: population.csv
+1682384350485 CSVProperty Reader opening file: properties.csv
+1682384356769 Main Menu User Input: 6
+1682384356769 Total Market Value Per Capita User Input Zip Code: 19149
+1682384356776 Main Menu User Input: 0

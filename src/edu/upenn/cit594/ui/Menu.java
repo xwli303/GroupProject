@@ -131,34 +131,34 @@ public class Menu {
 
                 case 4:
                     // Perform action 4 - average market value for specifiec zip code
-                    System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String zipCode = scanner.nextLine();
                     logger.log("Average Market Value User Input Zip Code: " + zipCode);
 
                     int averageMarketValue = this.propertyProcessor.calculateAverage(zipCode, this.marketValueAverage);
+                    System.out.println("BEGIN OUTPUT");
                     System.out.println(averageMarketValue);
                     System.out.println("END OUTPUT");
                     break;
                 case 5:
                     // Perform action 5 - average total livable area
-                    System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String input = scanner.nextLine();
                     logger.log("Average Total Livable Area User Input Zip Code: " + input);
 
                     int avgLivableArea = this.propertyProcessor.calculateAverage(input, this.livableAreaAverage);
+                    System.out.println("BEGIN OUTPUT");
                     System.out.println(avgLivableArea);
                     System.out.println("END OUTPUT");
                     break;
                 case 6:
                     // Perform action 6 - total market value per capita
-                    System.out.println("BEGIN OUTPUT");
                     System.out.println("Enter a 5-digit zip code:");
                     String zip = scanner.nextLine();
                     logger.log("Total Market Value Per Capita User Input Zip Code: " + zip);
 
                     int mvPerCapita = this.propertyProcessor.calculateMarketValuePerCapita(zip, this.marketValueAverage);
+                    System.out.println("BEGIN OUTPUT");
                     System.out.println(mvPerCapita);
                     System.out.println("END OUTPUT");
                     break;

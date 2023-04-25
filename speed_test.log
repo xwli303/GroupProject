@@ -12,3 +12,10 @@
 1682282901009 Main Menu User Input: 2
 1682282901009 Population Reader opening file: population.csv
 1682282901010 Main Menu User Input: 0
+1682384303494 Command Line Arguments: covid_data.json properties.csv population.csv speed_test.log
+1682384303540 Covid Reader opening file: covid_data.json
+1682384303785 Population Reader opening file: population.csv
+1682384303787 CSVProperty Reader opening file: properties.csv
+1682384309393 Main Menu User Input: 2
+1682384309393 Population Reader opening file: population.csv
+1682384309394 Main Menu User Input: 0
