@@ -24,10 +24,11 @@ public class PropertyProcessor implements IPropertyProcessor {
 		List<PropertyData> propZipList = propMap.get(zip);
 		if ((propZipList == null) || (propZipList.size() == 0)) { return 0; } 
 
+		numOfProp = propZipList.size();
+
 		for (PropertyData pd : propZipList) {
 			if (avc.containsNumericValue(pd)) {
 				sum += avc.getNumericValue(pd);
-				numOfProp++;
 			}
 
 		}
@@ -86,13 +87,11 @@ public class PropertyProcessor implements IPropertyProcessor {
 					break; 
 				}
 			}
-			//System.out.println("population is " + population);
+			
 			positiveCases = CovidProcessor.getPosCasesByZipDate(date, zip);
-			//System.out.println("positive cases are " + positiveCases);
 			
 			if ((population == 0) || (positiveCases == 0) ||(!propMap.containsKey(zip))) { return 0.0; }
 			posPop = (double)positiveCases/population;
-			//System.out.println("pc/pop " + (posPop));
 			
 			List<PropertyData> propZipList = propMap.get(zip);
 			if ((propZipList == null) || (propZipList.size() == 0)) { return 0.0; } 
@@ -102,13 +101,11 @@ public class PropertyProcessor implements IPropertyProcessor {
 			for (PropertyData pd : propZipList) {
 				if (avc.containsNumericValue(pd)) {
 					sum += avc.getNumericValue(pd);
-					//System.out.println("in loop sum is " + sum);
 				}
 			}
-			//System.out.println("sum is " + sum);
 			
 			infectedArea = (posPop * sum);
-			//System.out.println("infected area is" + infectedArea);
+			
 		} catch (NumberFormatException e) {
 			return 0.0;
 		}
