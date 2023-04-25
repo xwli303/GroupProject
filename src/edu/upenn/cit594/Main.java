@@ -1,5 +1,4 @@
 package edu.upenn.cit594;
-import edu.upenn.cit594.datamanagement.IPropertyReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.*;
@@ -55,6 +54,9 @@ public class Main {
 		} catch (IOException e1) {
 			return;
 		}
+        
+     // log command line arguments
+        logger.log("Command Line Arguments: " + covid + " " + properties + " " + population + " " + log);
 
         // initialize processors and menu
         Menu menu = new Menu();
@@ -94,8 +96,6 @@ public class Main {
             menu.marketValueAverage = marketValueAverage;
         }
 
-        // log command line arguments
-        logger.log("Command Line Arguments: " + covid + " " + properties + " " + population + " " + log);
 
         // show menu
         try {
@@ -104,4 +104,5 @@ public class Main {
             System.err.println(e.getMessage());
         }
     }
+
 }
