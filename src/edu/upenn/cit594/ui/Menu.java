@@ -33,7 +33,7 @@ public class Menu {
             System.out.println("4. Show the average market value for properties in a specified ZIP Code.");
             System.out.println("5. Show the average total livable area for properties in a specified ZIP Code.");
             System.out.println("6. Show the total market value of properties, per capita, for a specified ZIP Code.");
-            System.out.println("7. Show the the percent total livable area infected for a specified ZIP code on a specified date");
+            System.out.println("7. Show the estimated infected livable area for a specified ZIP code on a specified date");
 
             //validate input
             int choice = -1;
@@ -173,7 +173,7 @@ public class Menu {
                     while (datePrompt) {
                         System.out.println("Enter a date (YYYY-MM-DD): ");
                         String userInputDate = scanner.nextLine();
-                        logger.log("Percent Livable Area Infected User Input Date: " + userInputDate);
+                        logger.log("Infected Livable Area User Input Date: " + userInputDate);
                         //validate date input
                         boolean isValidDate = isValidDateFormat(userInputDate);
                         //if date is empty or invalid, reprompt
@@ -186,7 +186,7 @@ public class Menu {
                                 if(inputZip.length() == 5){
                                     double percent = propertyProcessor.calculateInfectedArea(userInputDate, inputZip, this.livableAreaAverage);
                                     System.out.println("BEGIN OUTPUT");
-                                    System.out.println(percent +"%");
+                                    System.out.println(percent +" square units");
                                     System.out.println("END OUTPUT");
                                     zipPrompt = false;
                                 }
